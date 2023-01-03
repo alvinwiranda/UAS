@@ -1,28 +1,72 @@
-package com.example.glide
+package com.example.andialhimam
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
+import android.widget.Button
 import android.widget.ImageView
-import com.bumptech.glide.Glide
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-    }
-    fun click(view:View){
-        //panggil imageview, edit text dan buttonnya
-        val imageView:ImageView=findViewById(R.id.gambar)
-        val inputURL:EditText = findViewById(R.id.textURL)
+        //membuat aksi ketika button di klik
+        val tombolAksi: Button = findViewById(R.id.buttonGanti)
+        tombolAksi.setOnClickListener {
+            ubahTeks()
+        }
 
-        //baca url dari edittextnya
-        val url = inputURL.text.toString()
-
-        //tampilkan dengan glide
-        Glide.with(this)
-            .load(url)
-            .into(imageView)
     }
+
+
+
+    //fungsi ketika tombol di klik akan di panggil fungsi ini
+    private fun ubahTeks () {
+        Toast.makeText(
+            this, "button clicked",
+            Toast.LENGTH_LONG
+        ).show()
+        val txtHello: TextView = findViewById(R.id.txtdadu1)
+        val image1: ImageView = findViewById(R.id.imageView1)
+        isiGambar(txtHello,image1)
+
+        val txtDadu2: TextView = findViewById(R.id.txtdadu2)
+        val image2: ImageView = findViewById(R.id.imageView2)
+        isiGambar(txtDadu2,image2)
+
+
+        val txtDadu3: TextView = findViewById(R.id.txtdadu3)
+        val image3: ImageView = findViewById(R.id.imageView3)
+        isiGambar(txtDadu3,image3)
+
+    }
+
+    private fun isiGambar( txtHello: TextView, image1: ImageView){
+        val tes = (1 until 6).random()
+        txtHello.text = tes.toString()
+
+        when (tes) {
+            1 -> image1.setImageDrawable(getDrawable(R.drawable.spiderman1))
+            2 -> image1.setImageDrawable(getDrawable(R.drawable.spiderman2))
+            3 -> image1.setImageDrawable(getDrawable(R.drawable.spiderman3))
+            4 -> image1.setImageDrawable(getDrawable(R.drawable.spiderman4))
+            5 -> image1.setImageDrawable(getDrawable(R.drawable.spiderman5))
+            else -> { // Note the block
+                image1.setImageDrawable(getDrawable(R.drawable.spiderman6))
+            }
+        }
+    }
+
+    fun pindahPage(view:View){
+        val intent = Intent(this, ListMovie::class.java).apply {
+            // putExtra(, message)
+        }
+        startActivity(intent)
+    }
+
+
+}
